@@ -1,12 +1,35 @@
 class App extends React.Component {
     state = {
-        comment: []
-
-
+        name: '',
+        message: '',
+        comments: []
     }
 
-    getComment = () => {
-        let comment
+    keepComments = (event, object) => {
+
+        object = {
+            name: this.state.name,
+            message: this.state.message
+        }
+        event.preventDefault();
+
+        let newComments = [...this.state.comments, object]
+
+        this.setState({
+            comments: newComments
+        })
+    }
+
+    changeMessage = (event) => {
+        this.setState({
+            message: event.target.value
+        })
+    }
+
+    changeName = (event) => {
+        this.setState({
+            name: event.target.value
+        })
     }
 
 
@@ -16,11 +39,11 @@ class App extends React.Component {
             <form>
                 <p>Say something</p>
 
-                <input type="text" placeholder="Your name"/>
+                <input type="text" onChange={this.changeName} placeholder="Your name"/>// 
 
-                <input type="text" placeholder="Your comment"/>
+                <input type="text" onChange={this.changeMessage} placeholder="Your comment"/>
             
-                <button type="submit">Comment</button>
+                <input onClick={this.keepComments} type="submit" value="Commenter"/>
             </form>
         )
     }
